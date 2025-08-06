@@ -1,0 +1,20 @@
+{
+	"data": {
+		"polaris": {
+			"application": {
+				"name": "yeep"
+			},
+			"project": {
+				"name": "hello-world"
+			},
+			"branch": {
+				"name": "main"
+			},	
+			"assessment": {
+				"types":  ["SAST", "SCA"]
+
+			},
+			"serverurl": "https://poc.polaris.blackduck.com"
+		}
+	}
+}
