@@ -1,0 +1,37 @@
+name: Polaris CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
+
+jobs:
+  build:
+    #runs-on: ubuntu-latest
+    runs-on: [self-hosted, windows]
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+      actions: read
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Black Duck Polaris scan
+        uses: blackduck-inc/black-duck-security-scan@v2 # Use latest major version
+        with:
+          ### ---------- POLARIS SCANNING: REQUIRED FIELDS ----------
+          polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_assessment_types: "SCA,SAST"
+          polaris_application_name: Test
+          polaris_project_name: all-in-one-js
+          polaris_branch_name: temp
+
+          polaris_reports_sarif_create: true  
+          polaris_reports_sarif_severities: 'CRITICAL,HIGH'
+          polaris_upload_sarif_report: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Use built-in token Repo/Project->Settings->Actions->General->Workflow permissions->Read/write OR create PAT wit repo and API scope to use Fix PR or PR Comment features
