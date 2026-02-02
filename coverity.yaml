@@ -1,4 +1,0 @@
-capture:
-  build:
-    clean-command: mvn -f C:\github-bd-yeep\polaris\hello-world\pom.xml clean
-    build-command: mvn -f C:\github-bd-yeep\polaris\hello-world\pom.xml compile  
